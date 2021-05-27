@@ -46,10 +46,10 @@ resource "aws_internet_gateway" "acme_gateway" {
 
 }
 
-
 resource "aws_route_table" "acme_route_table" {
   vpc_id = aws_vpc.acme_vpc.id
   tags = {
+
     Name = "acme_public"
   }
 }

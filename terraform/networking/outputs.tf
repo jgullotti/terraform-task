@@ -6,3 +6,6 @@ output "public_sg" {
   value = aws_security_group.acme_sg["public"].id
 }
 
+output "acme_subnets" {
+  value = aws_subnet.acme_subnet.*
+}
