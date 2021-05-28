@@ -45,7 +45,7 @@ cd terraform-task/terraform
 # access_ip will be your public ip address from where connections to your VPC will be allowed.
 # pubkey_path is the public key which will added to your provisioned instances allowing your user to ssh
 echo "access_ip = 12.34.56.78/32" > terraform.tfvars
-echo "pubkey_path = /home/username/.ssh/id_rsa.pub" >> terraform.tfvars
+echo "pubkey_path = /home/user/.ssh/id_rsa.pub" >> terraform.tfvars
 
 # run `terraform plan` to review the proposed changes
 terraform plan
