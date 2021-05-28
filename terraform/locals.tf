@@ -31,3 +31,16 @@ locals {
     }
   }
 }
+
+locals {
+  instances = {
+    server1 = {
+      name      = "Server1"
+      subnet_id = module.networking.acme_subnets[0].id
+    },
+    server2 = {
+      name      = "Server2"
+      subnet_id = module.networking.acme_subnets[1].id
+    }
+  }
+}

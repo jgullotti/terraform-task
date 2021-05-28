@@ -77,7 +77,6 @@ resource "aws_security_group" "acme_sg" {
 
   }
 
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -85,5 +84,3 @@ resource "aws_security_group" "acme_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-

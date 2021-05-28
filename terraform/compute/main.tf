@@ -1,4 +1,3 @@
-
 data "aws_ami" "centos" {
   most_recent = true
   owners      = [125523088429]
@@ -15,26 +14,14 @@ resource "aws_key_pair" "user_auth" {
   public_key = file(var.pubkey_path)
 }
 
-# TODO refactor instances, dry it up...
-resource "aws_instance" "server1" {
-  instance_type = var.instance_type
-  ami           = data.aws_ami.centos.id
-  tags = {
-    Name = "Server1"
-  }
+resource "aws_instance" "servers" {
+  for_each               = var.instances
+  instance_type          = var.instance_type
+  ami                    = data.aws_ami.centos.id
   key_name               = aws_key_pair.user_auth.id
   vpc_security_group_ids = [var.public_sg]
-  subnet_id              = var.subnets[0].id
-}
-
-resource "aws_instance" "server2" {
-  instance_type = var.instance_type
-  ami           = data.aws_ami.centos.id
+  subnet_id              = each.value.subnet_id
   tags = {
-    Name = "Server2"
+    Name = each.value.name
   }
-  key_name               = aws_key_pair.user_auth.id
-  vpc_security_group_ids = [var.public_sg]
-  subnet_id              = var.subnets[1].id
 }
-
