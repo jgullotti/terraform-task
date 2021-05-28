@@ -13,6 +13,9 @@ module "compute" {
   source        = "./compute"
   public_sg     = module.networking.public_sg
   subnets       = module.networking.acme_subnets
+  key_name      = "tempkey"
+  pubkey_path   = "/home/jon/.ssh/20210527_200038.pub"
   instance_type = "t3.micro"
   vol_size      = 10
+
 }

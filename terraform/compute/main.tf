@@ -10,6 +10,11 @@ data "aws_ami" "centos" {
 
 }
 
+resource "aws_key_pair" "user_auth" {
+  key_name   = var.key_name
+  public_key = file(var.pubkey_path)
+}
+
 # TODO refactor instances, dry it up...
 resource "aws_instance" "server1" {
   instance_type = var.instance_type
@@ -17,6 +22,7 @@ resource "aws_instance" "server1" {
   tags = {
     Name = "Server1"
   }
+  key_name               = aws_key_pair.user_auth.id
   vpc_security_group_ids = [var.public_sg]
   subnet_id              = var.subnets[0].id
 }
@@ -27,6 +33,8 @@ resource "aws_instance" "server2" {
   tags = {
     Name = "Server2"
   }
+  key_name               = aws_key_pair.user_auth.id
   vpc_security_group_ids = [var.public_sg]
   subnet_id              = var.subnets[1].id
 }
+
