@@ -13,7 +13,19 @@ locals {
           from        = 22
           to          = 22
           protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
+          cidr_blocks = concat([var.access_ip], [for s in module.networking.acme_subnets : s.cidr_block])
+        },
+        http = {
+          from        = 80
+          to          = 80
+          protocol    = "tcp"
+          cidr_blocks = [for s in module.networking.acme_subnets : s.cidr_block]
+        },
+        https = {
+          from        = 443
+          to          = 443
+          protocol    = "tcp"
+          cidr_blocks = [for s in module.networking.acme_subnets : s.cidr_block]
         }
       }
     }
